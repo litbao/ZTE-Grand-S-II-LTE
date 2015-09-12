@@ -1,0 +1,3 @@
+post-build=ZTE/msm8974/msm8974:4.4.2/KVT49L/eng.yangdong.20140605.164141:user/test-keys
+post-timestamp=1401957827
+pre-device=msm8974

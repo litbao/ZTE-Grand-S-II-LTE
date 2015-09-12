@@ -1,0 +1,14 @@
+#	Android	fstab
+#	The	filesystem
+#	specify	MF_CHECK,
+
+		
+#<src>	<mnt_point>	<type>
+/system	ext4 /dev/block/platform/msm_sdcc.1/by-name/system	
+/cache	ext4 /dev/block/platform/msm_sdcc.1/by-name/cache	
+/data	ext4 /dev/block/platform/msm_sdcc.1/by-name/userdata	
+/misc	emmc /dev/block/platform/msm_sdcc.1/by-name/misc	
+/boot	emmc /dev/block/platform/msm_sdcc.1/by-name/boot	
+/recovery	emmc /dev/block/platform/msm_sdcc.1/by-name/recovery	
+/storage/sdcard0	vfat /devices/msm_sdcc.1/mmc_host/mmc0	
+/storage/sdcard1	vfat /devices/msm_sdcc.2/mmc_host/mmc1	
