@@ -1,0 +1,461 @@
+diff --git a/arch/arm/boot/dts/msm8974-clock.dtsi b/arch/arm/boot/dts/msm8974-clock.dtsi
+old mode 100644
+new mode 100755
+index 8d90771..db821c7
+--- a/arch/arm/boot/dts/msm8974-clock.dtsi
++++ b/arch/arm/boot/dts/msm8974-clock.dtsi
+@@ -16,6 +16,7 @@
+ 	};
+ 
+ 	pm8941_clkdiv2: clkdiv@5c00 {
++			qcom,cxo-div = <1>;    /* ZTE_MODIFY by lvrongguo for es325 sleep/wakeup clock in 2013-09-05*/
+ 	};
+ 
+ 	pm8941_clkdiv3: clkdiv@5d00 {
+diff --git a/arch/arm/boot/dts/msm8974.dtsi b/arch/arm/boot/dts/msm8974.dtsi
+old mode 100644
+new mode 100755
+index 1845e17..1e7687f
+--- a/arch/arm/boot/dts/msm8974.dtsi
++++ b/arch/arm/boot/dts/msm8974.dtsi
+@@ -736,6 +736,51 @@
+ 			qcom,cdc-slim-ifd-elemental-addr = [00 00 A0 00 17 02];
+ 			qcom,cdc-dmic-sample-rate = <4800000>;
+ 		};
++/** ZTE_MODIFY begin by lvrongguo for es325 clock and 1p5 power in 2013-07-20*/
++		es325_codec_gen0 {
++			compatible = "adnc,es325-codec-gen0";
++			elemental-addr = [00 01 02 00 BE 02];
++
++			adnc,es325-codec-gen0 = "es325-codec-gen0";
++			adnc,es325-codec-gen0-eaddr = [00 01 02 00 BE 02];
++
++			adnc,reset-gpio  = <&msmgpio 58 0>; /* DEFINED BY CUSTOMER */
++			adnc,wakeup-gpio = <&msmgpio 49 0>; /* DEFINED BY CUSTOMER */
++
++			adnc,es325-mclk-gpios = <&pm8941_gpios 16 0>;	/* DEFINED BY audience */
++			es325-mclk-clk = <&pm8941_clkdiv2>;
++			adnc,es325-mclk-clk-freq = <19200000>;
++
++			es325_vdig-supply = <&pm8941_l10>;
++			adnc,es325-vreg-name = "es325_vdig";
++			adnc,es325-vreg-type = <0>;
++			adnc,es325-vreg-min-voltage = <1800000>;
++			adnc,es325-vreg-max-voltage = <1800000>;
++			adnc,es325-vreg-op-mode = <105000>;			
++		};
++
++		es325_codec_intf {
++			compatible = "adnc,es325-codec-intf";
++			elemental-addr = [00 00 02 00 BE 02];
++			
++			adnc,es325-codec-intf = "es325-codec-intf";
++			adnc,es325-codec-intf-eaddr = [00 01 02 00 BE 02];
++
++			adnc,reset-gpio  = <&msmgpio 58 0>; /* DEFINED BY CUSTOMER */
++			adnc,wakeup-gpio = <&msmgpio 49 0>; /* DEFINED BY CUSTOMER */		
++
++			adnc,es325-mclk-gpios = <&pm8941_gpios 16 0>;	/* DEFINED BY audience */
++			es325-mclk-clk = <&pm8941_clkdiv2>;
++			adnc,es325-mclk-clk-freq = <19200000>;
++
++			es325_vdig-supply = <&pm8941_l10>;
++			adnc,es325-vreg-name = "es325_vdig";
++			adnc,es325-vreg-type = <0>;
++			adnc,es325-vreg-min-voltage = <1800000>;
++			adnc,es325-vreg-max-voltage = <1800000>;
++			adnc,es325-vreg-op-mode = <105000>;
++		};
++/** ZTE_MODIFY end by lvrongguo */
+ 	};
+ 
+ 	sound {
+diff --git a/arch/arm/boot/dts/msm8974pro-ac.dtsi b/arch/arm/boot/dts/msm8974pro-ac.dtsi
+old mode 100644
+new mode 100755
+index 4c55169..55f3afd
+--- a/arch/arm/boot/dts/msm8974pro-ac.dtsi
++++ b/arch/arm/boot/dts/msm8974pro-ac.dtsi
+@@ -97,6 +97,16 @@
+ 			cdc-vddcx-1-supply = <&pma8084_l1>;
+ 			cdc-vddcx-2-supply = <&pma8084_l1>;
+ 		};
++/** ZTE_MODIFY begin by lvrongguo for es325 clock and 1p5 power in 2013-07-20*/
++		es325_codec_gen0 {
++			es325-mclk-clk = <&pma8084_l6>;
++			es325_vdig-supply = <&pma8084_l6>;
++		};
++		es325_codec_intf {
++			es325-mclk-clk = <&pma8084_l6>;
++			es325_vdig-supply = <&pma8084_l6>;
++		};
++/** ZTE_MODIFY end by lvrongguo*/
+ 	};
+ 
+ 	qcom,acpuclk@f9000000 {
+diff --git a/arch/arm/configs/msm8974_defconfig b/arch/arm/configs/msm8974_defconfig
+old mode 100644
+new mode 100755
+index 8520f23..5d60728
+--- a/arch/arm/configs/msm8974_defconfig
++++ b/arch/arm/configs/msm8974_defconfig
+@@ -371,6 +371,13 @@ CONFIG_BACKLIGHT_LCD_SUPPORT=y
+ # CONFIG_LCD_CLASS_DEVICE is not set
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
+ # CONFIG_BACKLIGHT_GENERIC is not set
++# ZTE_ADD by lvrongguo for load es325 firmware begin #
++#CONFIG_PREVENT_FIRMWARE_BUILD=y
++#CONFIG_FW_LOADER=y
++#CONFIG_FIRMWARE_IN_KERNEL=y
++#CONFIG_EXTRA_FIRMWARE="audience-es325-fw.bin"
++#CONFIG_EXTRA_FIRMWARE_DIR="firmware"
++# ZTE_ADD by lvrongguo end #
+ CONFIG_SOUND=y
+ CONFIG_SND=y
+ CONFIG_SND_USB_AUDIO=y
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+old mode 100644
+new mode 100755
+index 8d6dee3..7d3ec07
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -201,6 +201,20 @@ config SND_SOC_CS4271
+ config SND_SOC_CX20442
+ 	tristate
+ 
++# ZTE_MODIFY wangweiping 2013.08.19 add for es325 #
++config SND_SOC_ES325
++        tristate
++
++config SND_SOC_ES325_SLIM
++        tristate
++
++config SND_SOC_ES325_I2C
++        tristate
++
++config SND_SOC_ES325_I2S
++        tristate
++# ZTE_MODIFY wangweiping end #
++
+ config SND_SOC_JZ4740_CODEC
+ 	tristate
+ 
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+old mode 100644
+new mode 100755
+index c0469e3..cf13aad
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -44,6 +44,9 @@ snd-soc-tlv320aic26-objs := tlv320aic26.o
+ snd-soc-tlv320aic3x-objs := tlv320aic3x.o
+ snd-soc-tlv320aic32x4-objs := tlv320aic32x4.o
+ snd-soc-tlv320dac33-objs := tlv320dac33.o
++# ZTE_MODIFY wangweiping 2013.08.19 add for es325 #
++snd-soc-es325-objs := es325.o
++# ZTE_MODIFY wangweiping end #
+ snd-soc-twl4030-objs := twl4030.o
+ snd-soc-twl6040-objs := twl6040.o
+ snd-soc-uda134x-objs := uda134x.o
+@@ -151,6 +154,9 @@ obj-$(CONFIG_SND_SOC_SPDIF)	+= snd-soc-spdif.o
+ obj-$(CONFIG_SND_SOC_SSM2602)	+= snd-soc-ssm2602.o
+ obj-$(CONFIG_SND_SOC_STA32X)   += snd-soc-sta32x.o
+ obj-$(CONFIG_SND_SOC_STAC9766)	+= snd-soc-stac9766.o
++# ZTE_MODIFY wangweiping 2013.08.19 add for es325 #
++obj-$(CONFIG_SND_SOC_ES325)     += snd-soc-es325.o
++# ZTE_MODIFY wangweiping end #
+ obj-$(CONFIG_SND_SOC_TLV320AIC23)	+= snd-soc-tlv320aic23.o
+ obj-$(CONFIG_SND_SOC_TLV320AIC26)	+= snd-soc-tlv320aic26.o
+ obj-$(CONFIG_SND_SOC_TLV320AIC3X)	+= snd-soc-tlv320aic3x.o
+diff --git a/sound/soc/codecs/wcd9320.c b/sound/soc/codecs/wcd9320.c
+old mode 100644
+new mode 100755
+index c27e085..8ff64c2
+--- a/sound/soc/codecs/wcd9320.c
++++ b/sound/soc/codecs/wcd9320.c
+@@ -39,6 +39,13 @@
+ #include "wcd9xxx-resmgr.h"
+ #include "wcd9xxx-common.h"
+ 
++/** ZTE_MODIFY by lvrongguo begin for add Audience es325 function 2013-06-20 */
++#define DEBUG
++
++#ifdef CONFIG_SND_SOC_ES325
++#include "es325-export.h"
++#endif
++/** ZTE_MODIFY by lvrongguo end */
+ #define TAIKO_MAD_SLIMBUS_TX_PORT 12
+ #define TAIKO_MAD_AUDIO_FIRMWARE_PATH "wcd9320/wcd9320_mad_audio.bin"
+ #define TAIKO_VALIDATE_RX_SBPORT_RANGE(port) ((port >= 16) && (port <= 22))
+@@ -4609,6 +4616,90 @@ static int taiko_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++/** ZTE_MODIFY by lvrongguo begin for add Audience es325 function 2013-06-20 */
++#ifdef CONFIG_SND_SOC_ES325
++static int taiko_es325_hw_params(struct snd_pcm_substream *substream,
++		struct snd_pcm_hw_params *params,
++		struct snd_soc_dai *dai)
++{
++	int rc = 0;
++	dev_err(dai->dev,"%s: dai_name = %s DAI-ID %x rate %d num_ch %d\n", __func__,
++			dai->name, dai->id, params_rate(params),
++			params_channels(params));
++
++	rc = taiko_hw_params(substream, params, dai);
++
++	if (es325_remote_route_enable(dai))
++		rc = es325_slim_hw_params(substream, params, dai);
++
++	return rc;
++}
++
++#define SLIM_BUGFIX
++static int taiko_es325_set_channel_map(struct snd_soc_dai *dai,
++				unsigned int tx_num, unsigned int *tx_slot,
++				unsigned int rx_num, unsigned int *rx_slot)
++
++{
++#if !defined(SLIM_BUGFIX)
++	unsigned int taiko_tx_num = 0;
++#endif
++	unsigned int taiko_tx_slot[6];
++#if !defined(SLIM_BUGFIX)
++	unsigned int taiko_rx_num = 0;
++#endif
++	unsigned int taiko_rx_slot[6];
++#if defined(SLIM_BUGFIX)
++	unsigned int temp_tx_num = 0;
++	unsigned int temp_rx_num = 0;
++#endif
++	int rc = 0;
++
++	if (es325_remote_route_enable(dai)) {
++#if defined(SLIM_BUGFIX)
++		rc = taiko_get_channel_map(dai, &temp_tx_num, taiko_tx_slot,
++					&temp_rx_num, taiko_rx_slot);
++#else
++		rc = taiko_get_channel_map(dai, &taiko_tx_num, taiko_tx_slot,
++					&taiko_rx_num, taiko_rx_slot);
++#endif
++
++		rc = taiko_set_channel_map(dai, tx_num, taiko_tx_slot, rx_num, taiko_rx_slot);
++
++		rc = es325_slim_set_channel_map(dai, tx_num, tx_slot, rx_num, rx_slot);
++	} else
++		rc = taiko_set_channel_map(dai, tx_num, tx_slot, rx_num, rx_slot);
++
++	return rc;
++}
++
++static int taiko_es325_get_channel_map(struct snd_soc_dai *dai,
++				unsigned int *tx_num, unsigned int *tx_slot,
++				unsigned int *rx_num, unsigned int *rx_slot)
++
++{
++	int rc = 0;
++
++	if (es325_remote_route_enable(dai))
++		rc = es325_slim_get_channel_map(dai, tx_num, tx_slot, rx_num, rx_slot);
++	else
++		rc = taiko_get_channel_map(dai, tx_num, tx_slot, rx_num, rx_slot);
++
++	return rc;
++}
++#endif
++
++#ifdef CONFIG_SND_SOC_ES325
++static struct snd_soc_dai_ops taiko_dai_ops = {
++	.startup = taiko_startup,
++	.shutdown = taiko_shutdown,
++	.hw_params = taiko_es325_hw_params, /* tabla_hw_params, */
++	.set_sysclk = taiko_set_dai_sysclk,
++	.set_fmt = taiko_set_dai_fmt,
++	.set_channel_map = taiko_es325_set_channel_map, /* tabla_set_channel_map, */
++	.get_channel_map = taiko_es325_get_channel_map, /* tabla_get_channel_map, */
++};
++#else
+ static struct snd_soc_dai_ops taiko_dai_ops = {
+ 	.startup = taiko_startup,
+ 	.shutdown = taiko_shutdown,
+@@ -4618,6 +4709,17 @@ static struct snd_soc_dai_ops taiko_dai_ops = {
+ 	.set_channel_map = taiko_set_channel_map,
+ 	.get_channel_map = taiko_get_channel_map,
+ };
++#endif
++
++#ifdef CONFIG_SND_SOC_ES325
++static struct snd_soc_dai_ops taiko_es325_dai_ops = {
++	.startup = taiko_startup,
++	.hw_params = taiko_es325_hw_params,
++	.set_channel_map = taiko_es325_set_channel_map,
++	.get_channel_map = taiko_es325_get_channel_map,
++};
++#endif
++/** ZTE_MODIFY by lvrongguo end */
+ 
+ static struct snd_soc_dai_driver taiko_dai[] = {
+ 	{
+@@ -4732,6 +4834,52 @@ static struct snd_soc_dai_driver taiko_dai[] = {
+ 		},
+ 		.ops = &taiko_dai_ops,
+ 	},
++/** ZTE_MODIFY by lvrongguo begin for add Audience es325 function 2013-06-20 */
++#ifdef CONFIG_SND_SOC_ES325
++	{
++		.name = "taiko_es325_rx1",
++		.id = AIF1_PB + ES325_DAI_ID_OFFSET,
++		.playback = {
++			.stream_name = "AIF1 Playback",
++			.rates = WCD9320_RATES,
++			.formats = TAIKO_FORMATS,
++			.rate_max = 192000,
++			.rate_min = 8000,
++			.channels_min = 1,
++			.channels_max = 2,
++		},
++		.ops = &taiko_es325_dai_ops,
++	},
++	{
++		.name = "taiko_es325_tx1",
++		.id = AIF1_CAP + ES325_DAI_ID_OFFSET,
++		.capture = {
++			.stream_name = "AIF1 Capture",
++			.rates = WCD9320_RATES,
++			.formats = TAIKO_FORMATS,
++			.rate_max = 192000,
++			.rate_min = 8000,
++			.channels_min = 1,
++			.channels_max = 2,
++		},
++		.ops = &taiko_es325_dai_ops,
++	},
++	{
++		.name = "taiko_es325_rx2",
++		.id = AIF2_PB + ES325_DAI_ID_OFFSET,
++		.playback = {
++			.stream_name = "AIF2 Playback",
++			.rates = WCD9320_RATES,
++			.formats = TAIKO_FORMATS,
++			.rate_max = 192000,
++			.rate_min = 8000,
++			.channels_min = 1,
++			.channels_max = 2,
++		},
++		.ops = &taiko_es325_dai_ops,
++	},
++#endif
++/** ZTE_MODIFY by lvrongguo end */
+ };
+ 
+ static struct snd_soc_dai_driver taiko_i2s_dai[] = {
+@@ -4854,8 +5002,16 @@ static int taiko_codec_enable_slimrx(struct snd_soc_dapm_widget *w,
+ 		ret = wcd9xxx_cfg_slim_sch_rx(core, &dai->wcd9xxx_ch_list,
+ 					      dai->rate, dai->bit_width,
+ 					      &dai->grph);
++/** ZTE_MODIFY by lvrongguo begin for add Audience es325 function 2013-06-20 */
++#ifdef CONFIG_SND_SOC_ES325
++		ret = es325_remote_cfg_slim_rx(w->shift);
++#endif
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
++#ifdef CONFIG_SND_SOC_ES325
++		ret = es325_remote_close_slim_rx(w->shift);
++#endif
++/** ZTE_MODIFY by lvrongguo end */
+ 		ret = wcd9xxx_close_slim_sch_rx(core, &dai->wcd9xxx_ch_list,
+ 						dai->grph);
+ 		ret = taiko_codec_enable_slim_chmask(dai, false);
+@@ -4978,8 +5134,16 @@ static int taiko_codec_enable_slimtx(struct snd_soc_dapm_widget *w,
+ 		ret = wcd9xxx_cfg_slim_sch_tx(core, &dai->wcd9xxx_ch_list,
+ 					      dai->rate, dai->bit_width,
+ 					      &dai->grph);
++/** ZTE_MODIFY by lvrongguo begin for add Audience es325 function 2013-06-20 */
++#ifdef CONFIG_SND_SOC_ES325
++		ret = es325_remote_cfg_slim_tx(w->shift);
++#endif					      
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
++#ifdef CONFIG_SND_SOC_ES325
++			ret = es325_remote_close_slim_tx(w->shift);
++#endif	
++/** ZTE_MODIFY by lvrongguo end */
+ 		ret = wcd9xxx_close_slim_sch_tx(core, &dai->wcd9xxx_ch_list,
+ 						dai->grph);
+ 		ret = taiko_codec_enable_slim_chmask(dai, false);
+@@ -6476,7 +6640,11 @@ static int taiko_codec_probe(struct snd_soc_codec *codec)
+ 					   WCD9XXX_BANDGAP_AUDIO_MODE);
+ 		WCD9XXX_BG_CLK_UNLOCK(&taiko->resmgr);
+ 	}
+-
++/** ZTE_MODIFY by lvrongguo begin for add Audience es325 function 2013-06-20 */
++#ifdef CONFIG_SND_SOC_ES325
++	es325_remote_add_codec_controls(codec);
++#endif	
++/** ZTE_MODIFY by lvrongguo end */ 
+ 	ptr = kmalloc((sizeof(taiko_rx_chs) +
+ 		       sizeof(taiko_tx_chs)), GFP_KERNEL);
+ 	if (!ptr) {
+diff --git a/sound/soc/msm/Kconfig b/sound/soc/msm/Kconfig
+old mode 100644
+new mode 100755
+index 40661ff..2961964
+--- a/sound/soc/msm/Kconfig
++++ b/sound/soc/msm/Kconfig
+@@ -173,6 +173,7 @@ config DOLBY_DAP
+ 	 device, end point dependent post processing parameters and
+ 	 the various posrt processing parameters
+ 
++# ZTE_MODIFY wangweiping 2013.08.19 add for es325 #
+ config SND_SOC_MSM8974
+ 	tristate "SoC Machine driver for MSM8974 boards"
+ 	depends on ARCH_MSM8974
+@@ -183,12 +184,15 @@ config SND_SOC_MSM8974
+ 	select SND_DYNAMIC_MINORS
+ 	select AUDIO_OCMEM
+ 	select DOLBY_DAP
++	select SND_SOC_ES325
++	select SND_SOC_ES325_SLIM
+ 	help
+ 	 To add support for SoC audio on MSM8974.
+ 	 This will enable sound soc drivers which
+ 	 interfaces with DSP, also it will enable
+ 	 the machine drivers and the corresponding
+ 	 DAI-links.
++# ZTE_MODIFY wangweiping end #
+ 
+ config SND_SOC_APQ8074
+ 	tristate "SoC Machine driver for APQ8O74 boards"
+diff --git a/sound/soc/msm/msm8974.c b/sound/soc/msm/msm8974.c
+old mode 100644
+new mode 100755
+index 769b8eb..dd9ff37
+--- a/sound/soc/msm/msm8974.c
++++ b/sound/soc/msm/msm8974.c
+@@ -128,7 +128,13 @@ static struct wcd9xxx_mbhc_config mbhc_cfg = {
+ 	.mclk_rate = TAIKO_EXT_CLK_RATE,
+ 	.gpio = 0,
+ 	.gpio_irq = 0,
++/* ZTE_MODIFY jiangzhifeng 20130613 Headset insert detect, heaset is NO(normal open) type*/
++#if 0
+ 	.gpio_level_insert = 1,
++#else
++    .gpio_level_insert = 0,
++#endif
++/* ZTE_MODIFY end */
+ 	.detect_extn_cable = true,
+ 	.micbias_enable_flags = 1 << MBHC_MICBIAS_ENABLE_THRESHOLD_HEADSET,
+ 	.insert_detect = true,
+@@ -1673,7 +1679,13 @@ void *def_taiko_mbhc_cal(void)
+ #undef S
+ #define S(X, Y) ((WCD9XXX_MBHC_CAL_PLUG_TYPE_PTR(taiko_cal)->X) = (Y))
+ 	S(v_no_mic, 30);
++	/* ZTE_MODIFY jiangzhifeng 20130823 modify headset type detect threshhold */
++#if 0
+ 	S(v_hs_max, 2400);
++#else
++	S(v_hs_max, 2875);
++#endif
++    /* ZTE_MODIFY */
+ #undef S
+ #define S(X, Y) ((WCD9XXX_MBHC_CAL_BTN_DET_PTR(taiko_cal)->X) = (Y))
+ 	S(c[0], 62);
