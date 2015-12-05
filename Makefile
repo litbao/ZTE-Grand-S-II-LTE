@@ -7,7 +7,7 @@
 # The default value is base.
 # Support values: base, base_cm, base_mt6592 and other devices in the future.
 #-----------------------------------------------------------------------------
-#BASE := base_cm
+BASE := base_cm_lollipop-5.1
 
 ##############################################################################
 # The value is used for resource adapter with the aapt tool.
@@ -54,7 +54,7 @@ vendor_modify_images := boot
 # The default value is Bluetooth.
 # You can configure the apk name in the vendor/system/app or vendor/system/pri-app directory.
 #-----------------------------------------------------------------------------
-vendor_saved_apps := Bluetooth NfcNci KeyChain Tag HTMLViewer UserDictionaryProvider BackupRestoreConfirmation \
+vendor_saved_apps := Bluetooth KeyChain HTMLViewer UserDictionaryProvider BackupRestoreConfirmation \
                      FusedLocation PrintSpooler SharedStorageBackup  ExternalStorageProvider InputDevices \
                      ProxyHandler Shell DefaultContainerService WAPPushManager Stk TimeService qcrilmsgtunnel
 
@@ -74,7 +74,7 @@ vendor_saved_apps := Bluetooth NfcNci KeyChain Tag HTMLViewer UserDictionaryProv
 # You need to decode android.policy.jar to the project directory (use apktool d android.policy.jar) first,
 # and then you can make it by:   make android.policy
 #-----------------------------------------------------------------------------
-vendor_modify_jars := android.policy framework services telephony-common wifi-service
+vendor_modify_jars := android.policy framework oem-services services telephony-common wifi-service
 
 ##############################################################################
 # The value decides which board system directory you want to save.
@@ -89,7 +89,7 @@ vendor_modify_jars := android.policy framework services telephony-common wifi-se
 # You can configure the board system file path which relative to the system directory in the board release.
 # You should add "lib64/libwebviewchromium.so" for 64 bit system.
 #-----------------------------------------------------------------------------
-board_saved_files := lib/libwebviewchromium.so
+board_saved_files := lib/libwebviewchromium.so media/bootanimation.zip media/shutanimation.zip bin/bootanimation bin/shutdownanimation
 
 ##############################################################################
 # The value decides which board system apk you want to remove.
@@ -131,7 +131,7 @@ board_modify_apps := TeleService Keyguard SystemUI Telecom FlymeLauncher MmsServ
 # If 1, hide the soft mainkeys. If 0, display the soft mainkeys.
 # You should configure the property according to your device.
 override_property += \
-    qemu.hw.mainkeys=0
+    qemu.hw.mainkeys=1
 
 
 # The value of the property ro.flyme.romer will be contained in the ota package name.
@@ -141,8 +141,8 @@ override_property += \
 # The default value is Nexus-5_Unofficial.
 # You should configure the property according to your device and your ID with replace the "Nexus-5_Unofficial".
 override_property += \
-    ro.flyme.romer=Unofficial \
-    ro.product.model_romer=Nexus-5_Unofficial
+    ro.flyme.romer=ya0shen9 \
+    ro.product.model_romer=ZTEGrandSIILTE_ya0shen9
 
 ##############################################################################
 # The value decides which property you will remove from the build.prop.
