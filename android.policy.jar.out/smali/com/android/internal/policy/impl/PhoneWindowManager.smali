@@ -14235,7 +14235,7 @@
     .line 4947
     or-int/lit8 v0, v0, 0x1
 
-    goto/16 :goto_2
+    goto/16 :goto_flyme_0
 
     :cond_e
     move v3, v6
@@ -20196,6 +20196,8 @@
 
     .line 5467
     :sswitch_0
+    invoke-direct/range {p0 .. p1}, Lcom/android/internal/policy/impl/PhoneWindowManager;->mzInterceptVolumeKeyUpForTelephony(Landroid/view/KeyEvent;)V
+
     if-eqz v13, :cond_1c
 
     move-object/from16 v0, p0
