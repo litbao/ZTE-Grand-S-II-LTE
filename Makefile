@@ -142,7 +142,7 @@ override_property += \
 # You should configure the property according to your device and your ID with replace the "Nexus-5_Unofficial".
 override_property += \
     ro.flyme.romer=ya0shen9 \
-    ro.product.model_romer=ZTEGrandSIILTE_ya0shen9
+    ro.product.model_romer=ZTE Grand S II LTE_ya0shen9
 
 ##############################################################################
 # The value decides which property you will remove from the build.prop.
