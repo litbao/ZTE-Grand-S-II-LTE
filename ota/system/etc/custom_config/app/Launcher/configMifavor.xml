@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <bool name="config_scale_bimap">true</bool>
+     <fraction  name="config_scale_bimap_scale">70%</fraction >
+     <bool name="support_theme_change">false</bool>
+     <bool name="support_lockscreen_wallpaper_setting">true</bool>
+</resources>

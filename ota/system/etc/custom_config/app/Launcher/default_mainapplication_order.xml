@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<mainapps xmlns:launcher="http://schemas.android.com/apk/res/com.android.launcher">
+	<!--  screen  [0]   -->
+	<mainapp
+		launcher:className="com.zte.UserHelp.UserHelpActivity"
+		launcher:packageName="com.zte.UserHelp"
+		launcher:screen="0"
+		launcher:x="0"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.android.settings.Settings"
+		launcher:packageName="com.android.settings"
+		launcher:screen="0"
+		launcher:x="1"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.zte.backup.view_blueBG.StartActivity"
+		launcher:packageName="com.zte.backup.mmi"
+		launcher:screen="0"
+		launcher:x="2"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.zte.fullshare.Main"
+		launcher:packageName="com.zte.fullshare"
+		launcher:screen="0"
+		launcher:x="3"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.android.calendar.AllInOneActivity"
+		launcher:packageName="com.android.calendar"
+		launcher:screen="0"
+		launcher:x="0"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.android.camera.CameraLauncher"
+		launcher:packageName="com.android.gallery3d"
+		launcher:screen="0"
+		launcher:x="1"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.android.gallery3d.app.Gallery"
+		launcher:packageName="com.android.gallery3d"
+		launcher:screen="0"
+		launcher:x="2"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="cn.zte.recorder.SoundRecorder"
+		launcher:packageName="cn.zte.recorder"
+		launcher:screen="0"
+		launcher:x="3"
+		launcher:y="1" />
+	<folder
+		launcher:title="工具"
+		launcher:screen="0"
+		launcher:x="0"
+		launcher:y="2">
+		<mainapp
+			launcher:className="com.android.calculator2.Calculator"
+			launcher:packageName="com.android.calculator2"/>
+		<mainapp
+			launcher:className="zte.com.cn.alarmclock.AlarmClock"
+			launcher:packageName="zte.com.cn.alarmclock"/>
+		<mainapp
+			launcher:className="zte.android.flashlight.FlashLightActivity"
+			launcher:packageName="zte.android.flashlight"/>
+		<mainapp
+			launcher:className="zte.com.cn.cloudnotepad.ui.SplashActivity"
+			launcher:packageName="zte.com.cn.cloudnotepad"/>
+	</folder>
+	<mainapp
+		launcher:className="cn.zte.music.MusicBrowserActivity"
+		launcher:packageName="cn.zte.music"
+		launcher:screen="0"
+		launcher:x="1"
+		launcher:y="2" />
+	<mainapp
+		launcher:className="com.zte.videoplayer.VideoBrowserActivity"
+		launcher:packageName="com.zte.videoplayer"
+		launcher:screen="0"
+		launcher:x="2"
+		launcher:y="2" />
+	<mainapp
+		launcher:className="com.quicinc.fmradio.FMRadio"
+		launcher:packageName="com.quicinc.fmradio"
+		launcher:screen="0"
+		launcher:x="3"
+		launcher:y="2" />
+	<mainapp
+		launcher:className="com.android.contacts.CallLogLauncherActivity"
+		launcher:packageName="com.android.contacts"
+		launcher:screen="0"
+		launcher:x="0"
+		launcher:y="3" />
+	<mainapp
+		launcher:className="zte.com.cn.filer.FilerActivity"
+		launcher:packageName="zte.com.cn.filer"
+		launcher:screen="0"
+		launcher:x="1"
+		launcher:y="3" />
+	<mainapp
+		launcher:className="com.android.email.activity.Welcome"
+		launcher:packageName="com.android.email"
+		launcher:screen="0"
+		launcher:x="2"
+		launcher:y="3" />
+	<mainapp
+		launcher:className="com.android.providers.downloads.ui.DownloadList"
+		launcher:packageName="com.android.providers.downloads"
+		launcher:screen="0"
+		launcher:x="3"
+		launcher:y="3" />
+	<mainapp
+		launcher:className="com.android.contacts.activities.DialtactsActivity"
+		launcher:packageName="com.android.contacts"
+		launcher:screen="0"
+		launcher:x="0"
+		launcher:y="4" />
+	<mainapp
+		launcher:className="com.android.contacts.activities.PeopleActivity"
+		launcher:packageName="com.android.contacts"
+		launcher:screen="0"
+		launcher:x="1"
+		launcher:y="4" />
+	<mainapp
+		launcher:className="com.android.mms.ui.ConversationList"
+		launcher:packageName="com.android.mms"
+		launcher:screen="0"
+		launcher:x="2"
+		launcher:y="4" />
+	<mainapp
+		launcher:className="com.ume.browser.MainActivity"
+		launcher:packageName="com.ume.browser"
+		launcher:screen="0"
+		launcher:x="3"
+		launcher:y="4" />
+	<!--  screen  [1]   -->
+	<mainapp
+		launcher:className="com.zte.heartyservice.main.HeartServiceActivityLauncher"
+		launcher:packageName="com.zte.heartyservice"
+		launcher:screen="1"
+		launcher:x="0"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.zte.share.activity.GuidActivity"
+		launcher:packageName="cuuca.sendfiles.Activity"
+		launcher:screen="1"
+		launcher:x="1"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="zte.com.cn.driverMode.ui.DMStartActivity"
+		launcher:packageName="zte.com.cn.driverMode"
+		launcher:screen="1"
+		launcher:x="2"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.zte.aliveshow.MiracastActivity"
+		launcher:packageName="com.zte.aliveshow"
+		launcher:screen="1"
+		launcher:x="3"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.android.quicksearchbox.SearchActivity"
+		launcher:packageName="com.android.quicksearchbox"
+		launcher:screen="1"
+		launcher:x="0"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.zte.handservice.MainActivity"
+		launcher:packageName="com.zte.handservice"
+		launcher:screen="1"
+		launcher:x="1"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="cn.com.zte.yp.NumberLocatorActivity"
+		launcher:packageName="cn.com.zte.yp"
+		launcher:screen="1"
+		launcher:x="2"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.powermo.smartviewerhelp.MasterEntryActivity"
+		launcher:packageName="com.powermo.smartviewerhelp"
+		launcher:screen="1"
+		launcher:x="3"
+		launcher:y="1" />
+	<folder
+		launcher:title="网络应用"
+		launcher:screen="1"
+		launcher:x="0"
+		launcher:y="2">
+		<mainapp
+			launcher:className="com.autonavi.xmgd.navigator.Warn"
+			launcher:packageName="com.autonavi.xmgd.navigator.tob"
+			launcher:screen="0"
+			launcher:x="0"
+			launcher:y="0" />
+		<mainapp
+			launcher:className="com.autonavi.minimap.Splashy"
+			launcher:packageName="com.autonavi.minimap"
+			launcher:screen="1"
+			launcher:x="0"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="cn.wps.moffice.documentmanager.PreStartActivity"
+			launcher:packageName="cn.wps.moffice_eng"
+			launcher:screen="1"
+			launcher:x="1"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="zte.com.market.LoginActivity"
+			launcher:packageName="zte.com.market"
+			launcher:screen="1"
+			launcher:x="2"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.estream.ui.WelcomeActivity"
+			launcher:packageName="com.zhadui.stream"
+			launcher:screen="1"
+			launcher:x="3"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.tmall.wireless.module.launchalert.TMLaunchAlertActivity"
+			launcher:packageName="com.tmall.wireless"
+			launcher:screen="2"
+			launcher:x="3"
+			launcher:y="1" />
+		<mainapp
+			launcher:className="com.UCMobile.main.UCMobile"
+			launcher:packageName="com.UCMobile"
+			launcher:screen="2"
+			launcher:x="2"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.alibaba.android.babylon.biz.InitActivity"
+			launcher:packageName="com.alibaba.android.babylon"
+			launcher:screen="2"
+			launcher:x="2"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.taobao.tao.Welcome"
+			launcher:packageName="com.taobao.taobao"
+			launcher:screen="2"
+			launcher:x="2"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.qihoo.appstore.activities.LauncherActivity"
+			launcher:packageName="com.qihoo.appstore"
+			launcher:screen="2"
+			launcher:x="3"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.qihoo360.mobilesafe.ui.index.AppEnterActivity"
+			launcher:packageName="com.qihoo360.mobilesafe_lite"
+			launcher:screen="2"
+			launcher:x="2"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.sina.weibo.SplashActivity"
+			launcher:packageName="com.sina.weibo"
+			launcher:screen="2"
+			launcher:x="2"
+			launcher:y="2" />
+		<mainapp
+			launcher:className="com.eg.android.AlipayGphone.AlipayLogin"
+			launcher:packageName="com.eg.android.AlipayGphone"
+			launcher:screen="1"
+			launcher:x="0"
+			launcher:y="0" />
+	</folder>
+	<mainapp
+		launcher:className="com.android.stk.StkLauncherActivity"
+		launcher:packageName="com.android.stk"
+		launcher:screen="1"
+		launcher:x="1"
+		launcher:y="2" />
+	<!--  screen  [2]   -->
+	<mainapp
+		launcher:className="com.qualcomm.embmstest.EmbmsTestAppActivity"
+		launcher:packageName="com.qualcomm.embmstest"
+		launcher:screen="2"
+		launcher:x="0"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.qualcomm.presencelist.MainActivity"
+		launcher:packageName="com.qualcomm.presencelist"
+		launcher:screen="2"
+		launcher:x="1"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.android.MultiplePdpTest.ServiceTypeListActivity"
+		launcher:packageName="com.android.MultiplePdpTest"
+		launcher:screen="2"
+		launcher:x="2"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.qualcomm.qct.dlt.MainActivity"
+		launcher:packageName="com.qualcomm.qct.dlt"
+		launcher:screen="2"
+		launcher:x="3"
+		launcher:y="0" />
+	<mainapp
+		launcher:className="com.qualcomm.qualcommsettings.QualcommSettings"
+		launcher:packageName="com.qualcomm.qualcommsettings"
+		launcher:screen="2"
+		launcher:x="0"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.qualcomm.location.qvtester.InputCriteria"
+		launcher:packageName="com.qualcomm.location.qvtester"
+		launcher:screen="2"
+		launcher:x="1"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.android.speechrecorder.SpeechRecorderActivity"
+		launcher:packageName="com.android.speechrecorder"
+		launcher:screen="2"
+		launcher:x="2"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.android.development.Development"
+		launcher:packageName="com.android.development"
+		launcher:screen="2"
+		launcher:x="3"
+		launcher:y="1" />
+	<mainapp
+		launcher:className="com.quicinc.cne.settings.CneSettings"
+		launcher:packageName="com.quicinc.cne.settings"
+		launcher:screen="2"
+		launcher:x="0"
+		launcher:y="2" />
+	<mainapp
+		launcher:className="com.powermo.smartviewerhelp.MasterEntryActivity"
+		launcher:packageName="com.powermo.smartviewerhelp"
+		launcher:screen="2"
+		launcher:x="1"
+		launcher:y="2" />
+	</mainapps>
