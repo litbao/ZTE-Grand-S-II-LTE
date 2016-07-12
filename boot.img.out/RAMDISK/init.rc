@@ -666,6 +666,23 @@ service pre-recovery /system/bin/uncrypt
     class main
     disabled
     oneshot
+
+service smbd /system/bin/smbd -D
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service nmbd /system/bin/nmbd -D
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service flymed /system/bin/flymed
+    class main
+    socket flymed stream 0660 root system
+
 service diagzte /system/bin/diagzte
 	class main
 
