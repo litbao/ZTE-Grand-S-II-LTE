@@ -527,7 +527,6 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 103
     const-wide/16 v6, 0x10
 
     :try_start_1
@@ -535,15 +534,13 @@
 
     invoke-static {v6, v7, v3}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
 
-    .line 104
     invoke-static {}, Landroid/webkit/WebViewFactory;->loadNativeLibrary()V
 
-    .line 105
+    .line 103
     const-wide/16 v6, 0x10
 
     invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
 
-    .line 108
     const-wide/16 v6, 0x10
 
     const-string v3, "WebViewFactory.getFactoryClass()"
@@ -976,7 +973,7 @@
 
     .line 81
     .local v0, "initialApp":Landroid/app/Application;
-    const v2, 0x1040110
+    const v2, #android:string@config_alternateWebViewPackageName#t
 
     invoke-virtual {v0, v2}, Landroid/app/Application;->getString(I)Ljava/lang/String;
 
@@ -997,7 +994,7 @@
 
     .restart local v1    # "pkg":Ljava/lang/String;
     :cond_0
-    const v2, 0x104010f
+    const v2, #android:string@config_webViewPackageName#t
 
     invoke-virtual {v0, v2}, Landroid/app/Application;->getString(I)Ljava/lang/String;
 

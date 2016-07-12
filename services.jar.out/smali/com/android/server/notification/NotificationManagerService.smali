@@ -11,6 +11,7 @@
         Lcom/android/server/notification/NotificationManagerService$NotificationListeners;,
         Lcom/android/server/notification/NotificationManagerService$RankingWorkerHandler;,
         Lcom/android/server/notification/NotificationManagerService$WorkerHandler;,
+        Lcom/android/server/notification/NotificationManagerService$FlymeInjector;,
         Lcom/android/server/notification/NotificationManagerService$SettingsObserver;,
         Lcom/android/server/notification/NotificationManagerService$SpamFilterObserver;,
         Lcom/android/server/notification/NotificationManagerService$NotificationLedValues;,
@@ -127,6 +128,12 @@
 
 
 # instance fields
+.field mFlymePowerManager:Landroid/os/PowerManager;
+
+.field mFlymeWakeLock:Landroid/os/PowerManager$WakeLock;
+
+.field mFlymeWakeUpScreenRunnable:Ljava/lang/Runnable;
+
 .field private mActiveMedia:Z
 
 .field private mAdjustableNotificationLedBrightness:Z
@@ -1836,7 +1843,7 @@
 
     move-result-object v4
 
-    const v5, 0x11200af
+    const v5, #android:bool@config_sms_ringtone_incall#t
 
     invoke-virtual {v4, v5}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -2379,33 +2386,29 @@
 
     invoke-virtual {v4, v5}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 2487
     invoke-virtual/range {p0 .. p0}, Lcom/android/server/notification/NotificationManagerService;->updateLightsLocked()V
 
-    .line 2488
+    invoke-static/range {p0 .. p1}, Lcom/android/server/notification/NotificationManagerService$FlymeInjector;->notifyWakeupScreen(Lcom/android/server/notification/NotificationManagerService;Lcom/android/server/notification/NotificationRecord;)V
+
     move-object/from16 v0, p0
 
     iget-boolean v4, v0, Lcom/android/server/notification/NotificationManagerService;->mUseAttentionLight:Z
 
     if-eqz v4, :cond_12
 
-    .line 2489
     move-object/from16 v0, p0
 
     iget-object v4, v0, Lcom/android/server/notification/NotificationManagerService;->mAttentionLight:Lcom/android/server/lights/Light;
 
     invoke-virtual {v4}, Lcom/android/server/lights/Light;->pulse()V
 
-    .line 2491
     :cond_12
     const/4 v12, 0x1
 
-    .line 2495
     :cond_13
     :goto_d
     if-eqz v12, :cond_14
 
-    .line 2496
     move-object/from16 v0, p0
 
     iget-object v4, v0, Lcom/android/server/notification/NotificationManagerService;->mHandler:Lcom/android/server/notification/NotificationManagerService$WorkerHandler;
@@ -8911,15 +8914,13 @@
 
     iput-object v2, v0, Lcom/android/server/notification/NotificationManagerService;->mHandler:Lcom/android/server/notification/NotificationManagerService$WorkerHandler;
 
-    .line 1112
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/server/notification/NotificationManagerService;->mRankingThread:Landroid/os/HandlerThread;
 
     invoke-virtual {v2}, Landroid/os/HandlerThread;->start()V
 
-    .line 1115
-    const v2, 0x107003e
+    const v2, #android:array@config_notificationSignalExtractors#t
 
     :try_start_0
     move-object/from16 v0, v22
@@ -9140,8 +9141,7 @@
 
     iput-object v2, v0, Lcom/android/server/notification/NotificationManagerService;->mAttentionLight:Lcom/android/server/lights/Light;
 
-    .line 1152
-    const v2, 0x106010f
+    const v2, #android:color@config_defaultNotificationColor#t
 
     move-object/from16 v0, v22
 
@@ -9153,8 +9153,7 @@
 
     iput v2, v0, Lcom/android/server/notification/NotificationManagerService;->mDefaultNotificationColor:I
 
-    .line 1154
-    const v2, 0x10e0048
+    const v2, #android:integer@config_defaultNotificationLedOn#t
 
     move-object/from16 v0, v22
 
@@ -9166,8 +9165,7 @@
 
     iput v2, v0, Lcom/android/server/notification/NotificationManagerService;->mDefaultNotificationLedOn:I
 
-    .line 1156
-    const v2, 0x10e0049
+    const v2, #android:integer@config_defaultNotificationLedOff#t
 
     move-object/from16 v0, v22
 
@@ -9197,8 +9195,7 @@
 
     iput-object v2, v0, Lcom/android/server/notification/NotificationManagerService;->mPackageNameMappings:Ljava/util/Map;
 
-    .line 1162
-    const v2, 0x107000d
+    const v2, #android:array@notification_light_package_mapping#t
 
     move-object/from16 v0, v22
 
@@ -9290,7 +9287,7 @@
     .restart local v19    # "lights":Lcom/android/server/lights/LightsManager;
     .restart local v23    # "systemDir":Ljava/io/File;
     :cond_0
-    const v2, 0x107003a
+    const v2, #android:array@config_defaultNotificationVibePattern#t
 
     const/16 v3, 0x11
 
@@ -9306,8 +9303,7 @@
 
     iput-object v2, v0, Lcom/android/server/notification/NotificationManagerService;->mDefaultVibrationPattern:[J
 
-    .line 1174
-    const v2, 0x107003b
+    const v2, #android:array@config_notificationFallbackVibePattern#t
 
     const/16 v3, 0x11
 
@@ -9323,8 +9319,7 @@
 
     iput-object v2, v0, Lcom/android/server/notification/NotificationManagerService;->mFallbackVibrationPattern:[J
 
-    .line 1179
-    const v2, 0x112003d
+    const v2, #android:bool@config_adjustableNotificationLedBrightness#t
 
     move-object/from16 v0, v22
 
@@ -9336,8 +9331,7 @@
 
     iput-boolean v2, v0, Lcom/android/server/notification/NotificationManagerService;->mAdjustableNotificationLedBrightness:Z
 
-    .line 1182
-    const v2, 0x1120026
+    const v2, #android:bool@config_useAttentionLight#t
 
     move-object/from16 v0, v22
 
@@ -9617,7 +9611,7 @@
     .line 1231
     new-instance v2, Lcom/android/server/notification/NotificationManagerService$Archive;
 
-    const v3, 0x10e004f
+    const v3, #android:integer@config_notificationServiceArchiveSize#t
 
     move-object/from16 v0, v22
 
@@ -9652,6 +9646,8 @@
     move-object/from16 v0, p0
 
     invoke-virtual {v0, v2, v3}, Lcom/android/server/notification/NotificationManagerService;->publishLocalService(Ljava/lang/Class;Ljava/lang/Object;)V
+
+    invoke-static/range {p0 .. p0}, Lcom/android/server/notification/NotificationManagerService$FlymeInjector;->initFlymeExtraFields(Lcom/android/server/notification/NotificationManagerService;)V
 
     .line 1236
     return-void
@@ -10310,4 +10306,31 @@
 
     .restart local v3    # "ledOffMS":I
     goto :goto_5
+.end method
+
+.method flymeGetFieldHandler()Lcom/android/server/notification/NotificationManagerService$WorkerHandler;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/notification/NotificationManagerService;->mHandler:Lcom/android/server/notification/NotificationManagerService$WorkerHandler;
+
+    return-object v0
+.end method
+
+.method flymeGetFieldInCall()Z
+    .locals 1
+
+    .prologue
+    iget-boolean v0, p0, Lcom/android/server/notification/NotificationManagerService;->mInCall:Z
+
+    return v0
+.end method
+
+.method flymeGetFieldScreenOn()Z
+    .locals 1
+
+    .prologue
+    iget-boolean v0, p0, Lcom/android/server/notification/NotificationManagerService;->mScreenOn:Z
+
+    return v0
 .end method
