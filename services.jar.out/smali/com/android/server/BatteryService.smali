@@ -4229,7 +4229,12 @@
 
     move-result v0
 
-    if-nez v0, :cond_0
+    #if-nez v0, :cond_0
+
+    if-eqz v0, :cond_ys0
+
+    :cond_ys0
+    invoke-static/range {p0 .. p0}, Lcom/android/server/BatteryService$FlymeInjector;->writeMessageToFileIfNoPowerLocked(Lcom/android/server/BatteryService;)V
 
     iget-object v0, p0, Lcom/android/server/BatteryService;->mHandler:Landroid/os/Handler;
 
