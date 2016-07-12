@@ -505,6 +505,8 @@
 
     if-eqz v3, :cond_0
 
+    goto/16 :goto_flyme_0
+
     sget-object v3, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
 
     monitor-exit v4
@@ -519,6 +521,7 @@
     .end local v1    # "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
     .end local v2    # "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
     :cond_0
+    :goto_flyme_0
     const-wide/16 v6, 0x10
 
     const-string v3, "WebViewFactory.getProvider()"
