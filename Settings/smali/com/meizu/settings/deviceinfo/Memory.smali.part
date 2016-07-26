@@ -1,0 +1,205 @@
+.method private addStoragePreference()V
+    .locals 12
+
+    .prologue
+    const v0, #com.android.settings:xml@mz_device_info_memory#t
+
+    invoke-virtual {p0, v0}, Lcom/meizu/settings/deviceinfo/Memory;->addPreferencesFromResource(I)V
+
+    invoke-virtual {p0}, Lcom/meizu/settings/deviceinfo/Memory;->getActivity()Landroid/app/Activity;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/os/storage/StorageManager;->from(Landroid/content/Context;)Landroid/os/storage/StorageManager;
+
+    move-result-object v10
+
+    .local v10, "storageManager":Landroid/os/storage/StorageManager;
+    invoke-virtual {v10}, Landroid/os/storage/StorageManager;->getVolumeList()[Landroid/os/storage/StorageVolume;
+
+    move-result-object v11
+
+    .local v11, "storageVolumes":[Landroid/os/storage/StorageVolume;
+    move-object v7, v11
+
+    .local v7, "arr$":[Landroid/os/storage/StorageVolume;
+    array-length v9, v7
+
+    .local v9, "len$":I
+    const/4 v8, 0x0
+
+    .local v8, "i$":I
+    :goto_0
+    if-ge v8, v9, :cond_2
+
+    aget-object v4, v7, v8
+
+    .local v4, "volume":Landroid/os/storage/StorageVolume;
+    invoke-virtual {v4}, Landroid/os/storage/StorageVolume;->getPath()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/io/File;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    new-instance v0, Lcom/meizu/settings/deviceinfo/MeizuStorageVolumePreferenceCategory;
+
+    invoke-virtual {p0}, Lcom/meizu/settings/deviceinfo/Memory;->getActivity()Landroid/app/Activity;
+
+    move-result-object v1
+
+    invoke-virtual {p0}, Lcom/meizu/settings/deviceinfo/Memory;->getPreferenceScreen()Landroid/preference/PreferenceScreen;
+
+    move-result-object v2
+
+    invoke-direct {v0, v1, v2, v4, v10}, Lcom/meizu/settings/deviceinfo/MeizuStorageVolumePreferenceCategory;-><init>(Landroid/content/Context;Landroid/preference/PreferenceScreen;Landroid/os/storage/StorageVolume;Landroid/os/storage/StorageManager;)V
+
+    iput-object v0, p0, Lcom/meizu/settings/deviceinfo/Memory;->mInternalStorageVolumePreferenceCategory:Lcom/meizu/settings/deviceinfo/MeizuStorageVolumePreferenceCategory;
+
+    iget-object v0, p0, Lcom/meizu/settings/deviceinfo/Memory;->mInternalStorageVolumePreferenceCategory:Lcom/meizu/settings/deviceinfo/MeizuStorageVolumePreferenceCategory;
+
+    invoke-virtual {v0}, Lcom/meizu/settings/deviceinfo/MeizuStorageVolumePreferenceCategory;->init()V
+
+    :cond_0
+    :goto_1
+    add-int/lit8 v8, v8, 0x1
+
+    goto :goto_0
+
+    :cond_1
+    invoke-virtual {v4}, Landroid/os/storage/StorageVolume;->isEmulated()Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {v4}, Landroid/os/storage/StorageVolume;->isRemovable()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v4}, Landroid/os/storage/StorageVolume;->getPath()Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "/storage/sdcard"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const-string v0, "Memory"
+
+    const-string v1, "createPreferenceHierarchy add external storage category"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    new-instance v0, Lcom/meizu/settings/MeizuExternalStoragePreferenceCategory;
+
+    invoke-virtual {p0}, Lcom/meizu/settings/deviceinfo/Memory;->getActivity()Landroid/app/Activity;
+
+    move-result-object v2
+
+    invoke-virtual {p0}, Lcom/meizu/settings/deviceinfo/Memory;->getActivity()Landroid/app/Activity;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/app/Activity;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v3
+
+    iget-object v5, p0, Lcom/meizu/settings/deviceinfo/Memory;->mStorageManager:Landroid/os/storage/StorageManager;
+
+    const/4 v6, 0x0
+
+    move-object v1, p0
+
+    invoke-direct/range {v0 .. v6}, Lcom/meizu/settings/MeizuExternalStoragePreferenceCategory;-><init>(Landroid/preference/PreferenceFragment;Landroid/content/Context;Landroid/content/res/Resources;Landroid/os/storage/StorageVolume;Landroid/os/storage/StorageManager;Z)V
+
+    iput-object v0, p0, Lcom/meizu/settings/deviceinfo/Memory;->mExternalStorageCategory:Lcom/meizu/settings/MeizuExternalStoragePreferenceCategory;
+
+    goto :goto_1
+
+    .end local v4    # "volume":Landroid/os/storage/StorageVolume;
+    :cond_2
+    return-void
+.end method
+
+.method private checkIfDlgShowing()V
+    .locals 6
+
+    .prologue
+    const/4 v5, 0x3
+
+    new-array v2, v5, [I
+
+    fill-array-data v2, :array_0
+
+    .local v2, "dlgIds":[I
+    move-object v0, v2
+
+    .local v0, "arr$":[I
+    array-length v4, v0
+
+    .local v4, "len$":I
+    const/4 v3, 0x0
+
+    .local v3, "i$":I
+    :goto_0
+    if-ge v3, v4, :cond_0
+
+    aget v1, v0, v3
+
+    .local v1, "dlg":I
+    invoke-virtual {p0, v1}, Lcom/meizu/settings/deviceinfo/Memory;->removeDialog(I)V
+
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_0
+
+    .end local v1    # "dlg":I
+    :cond_0
+    return-void
+
+    :array_0
+    .array-data 4
+        0x1
+        0x2
+        0x3
+    .end array-data
+.end method
+
+.method static synthetic doCheckIfDlgShowing(Lcom/meizu/settings/deviceinfo/Memory;)V
+    .locals 0
+    .param p0, "x0"    # Lcom/meizu/settings/deviceinfo/Memory;
+
+    .prologue
+    invoke-direct {p0}, Lcom/meizu/settings/deviceinfo/Memory;->checkIfDlgShowing()V
+
+    return-void
+.end method
+
+.method static synthetic getMStorageManager(Lcom/meizu/settings/deviceinfo/Memory;)Landroid/os/storage/StorageManager;
+    .locals 1
+    .param p0, "x0"    # Lcom/meizu/settings/deviceinfo/Memory;
+
+    .prologue
+    .line 68
+    iget-object v0, p0, Lcom/meizu/settings/deviceinfo/Memory;->mStorageManager:Landroid/os/storage/StorageManager;
+
+    return-object v0
+.end method

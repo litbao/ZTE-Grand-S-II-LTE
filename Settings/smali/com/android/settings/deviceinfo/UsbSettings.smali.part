@@ -1,0 +1,171 @@
+.method private addChargeOnlyAndBicrMode(Landroid/preference/PreferenceScreen;)V
+    .locals 2
+    .param p1, "root"    # Landroid/preference/PreferenceScreen;
+
+    .prologue
+    new-instance v0, Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-virtual {p0}, Lcom/android/settings/deviceinfo/UsbSettings;->getActivity()Landroid/app/Activity;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/meizu/settings/deviceinfo/UsbPreference;-><init>(Landroid/content/Context;)V
+
+    iput-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mChargeOnly:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mChargeOnly:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    const v1, #com.android.settings:string@usb_charge_title#t
+
+    invoke-virtual {v0, v1}, Lcom/meizu/settings/deviceinfo/UsbPreference;->setTitle(I)V
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mChargeOnly:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    const v1, #com.android.settings:string@usb_charge_summary#t
+
+    invoke-virtual {v0, v1}, Lcom/meizu/settings/deviceinfo/UsbPreference;->setSummary(I)V
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mChargeOnly:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-virtual {p1, v0}, Landroid/preference/PreferenceScreen;->addPreference(Landroid/preference/Preference;)Z
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mUsbPreferenceList:Ljava/util/List;
+
+    iget-object v1, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mChargeOnly:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    new-instance v0, Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-virtual {p0}, Lcom/android/settings/deviceinfo/UsbSettings;->getActivity()Landroid/app/Activity;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/meizu/settings/deviceinfo/UsbPreference;-><init>(Landroid/content/Context;)V
+
+    iput-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mBicr:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mBicr:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    const v1, #com.android.settings:string@usb_bicr_title#t
+
+    invoke-virtual {v0, v1}, Lcom/meizu/settings/deviceinfo/UsbPreference;->setTitle(I)V
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mBicr:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    const v1, #com.android.settings:string@usb_bicr_summary#t
+
+    invoke-virtual {v0, v1}, Lcom/meizu/settings/deviceinfo/UsbPreference;->setSummary(I)V
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mBicr:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-virtual {p1, v0}, Landroid/preference/PreferenceScreen;->addPreference(Landroid/preference/Preference;)Z
+
+    iget-object v0, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mUsbPreferenceList:Ljava/util/List;
+
+    iget-object v1, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mBicr:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
+.method private createPreferenceHierarchy()Landroid/preference/PreferenceScreen;
+    .locals 5
+
+    .prologue
+    const/4 v4, 0x0
+
+    invoke-virtual {p0}, Lcom/android/settings/deviceinfo/UsbSettings;->getPreferenceScreen()Landroid/preference/PreferenceScreen;
+
+    move-result-object v0
+
+    .local v0, "root":Landroid/preference/PreferenceScreen;
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v0}, Landroid/preference/PreferenceScreen;->removeAll()V
+
+    :cond_0
+    const v2, #com.android.settings:xml@mz_usb_settings#t
+
+    invoke-virtual {p0, v2}, Lcom/android/settings/deviceinfo/UsbSettings;->addPreferencesFromResource(I)V
+
+    invoke-virtual {p0}, Lcom/android/settings/deviceinfo/UsbSettings;->getPreferenceScreen()Landroid/preference/PreferenceScreen;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/android/settings/deviceinfo/UsbSettings;->addChargeOnlyAndBicrMode(Landroid/preference/PreferenceScreen;)V
+
+    invoke-virtual {p0}, Lcom/android/settings/deviceinfo/UsbSettings;->getActivity()Landroid/app/Activity;
+
+    move-result-object v2
+
+    invoke-direct {p0, v2, v0}, Lcom/android/settings/deviceinfo/UsbSettings;->addMtpTipCategory(Landroid/content/Context;Landroid/preference/PreferenceScreen;)V
+
+    const-string v2, "usb_mtp"
+
+    invoke-virtual {v0, v2}, Landroid/preference/PreferenceScreen;->findPreference(Ljava/lang/CharSequence;)Landroid/preference/Preference;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    iput-object v2, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mMtp:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    const-string v2, "usb_ptp"
+
+    invoke-virtual {v0, v2}, Landroid/preference/PreferenceScreen;->findPreference(Ljava/lang/CharSequence;)Landroid/preference/Preference;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    iput-object v2, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mPtp:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    iget-object v2, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mUsbPreferenceList:Ljava/util/List;
+
+    iget-object v3, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mMtp:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    iget-object v2, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mUsbPreferenceList:Ljava/util/List;
+
+    iget-object v3, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mPtp:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-interface {v2, v3}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    invoke-static {v0, v4}, Lcom/meizu/settings/utils/MzUtils;->showPreferenceScreenBottomDivider(Landroid/preference/PreferenceScreen;Z)V
+
+    invoke-virtual {p0}, Lcom/android/settings/deviceinfo/UsbSettings;->getActivity()Landroid/app/Activity;
+
+    move-result-object v2
+
+    const-string v3, "user"
+
+    invoke-virtual {v2, v3}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/os/UserManager;
+
+    .local v1, "um":Landroid/os/UserManager;
+    const-string v2, "no_usb_file_transfer"
+
+    invoke-virtual {v1, v2}, Landroid/os/UserManager;->hasUserRestriction(Ljava/lang/String;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1
+
+    iget-object v2, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mMtp:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-virtual {v2, v4}, Lcom/meizu/settings/deviceinfo/UsbPreference;->setEnabled(Z)V
+
+    iget-object v2, p0, Lcom/android/settings/deviceinfo/UsbSettings;->mPtp:Lcom/meizu/settings/deviceinfo/UsbPreference;
+
+    invoke-virtual {v2, v4}, Lcom/meizu/settings/deviceinfo/UsbPreference;->setEnabled(Z)V
+
+    :cond_1
+    return-object v0
+.end method
+
