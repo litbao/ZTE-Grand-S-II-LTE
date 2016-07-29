@@ -490,6 +490,323 @@
     return-object v0
 .end method
 
+.method static cm_getProvider()Landroid/webkit/WebViewFactoryProvider;
+    .locals 9
+
+    .prologue
+    .line 96
+    sget-object v5, Landroid/webkit/WebViewFactory;->sProviderLock:Ljava/lang/Object;
+
+    monitor-enter v5
+
+    .line 99
+    :try_start_0
+    sget-object v4, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
+
+    if-eqz v4, :cond_0
+
+    sget-object v4, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
+
+    monitor-exit v5
+
+    .line 143
+    .local v1, "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
+    .local v2, "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
+    .local v3, "uid":I
+    :goto_0
+    return-object v4
+
+    .line 101
+    .end local v1    # "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
+    .end local v2    # "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
+    .end local v3    # "uid":I
+    :cond_0
+    invoke-static {}, Landroid/os/Process;->myUid()I
+
+    move-result v3
+
+    .line 102
+    .restart local v3    # "uid":I
+    if-eqz v3, :cond_1
+
+    goto/16 :goto_flyme_0
+
+    const/16 v4, 0x3e8
+
+    if-ne v3, v4, :cond_2
+
+    .line 103
+    :cond_1
+    new-instance v4, Ljava/lang/UnsupportedOperationException;
+
+    const-string v6, "For security reasons, WebView is not allowed in privileged processes"
+
+    invoke-direct {v4, v6}, Ljava/lang/UnsupportedOperationException;-><init>(Ljava/lang/String;)V
+
+    throw v4
+
+    .line 145
+    :catchall_0
+    move-exception v4
+
+    monitor-exit v5
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v4
+
+    .line 107
+    :cond_2
+    :goto_flyme_0
+    const-wide/16 v6, 0x10
+
+    :try_start_1
+    const-string v4, "WebViewFactory.getProvider()"
+
+    invoke-static {v6, v7, v4}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    .line 109
+    const-wide/16 v6, 0x10
+
+    :try_start_2
+    const-string v4, "WebViewFactory.loadNativeLibrary()"
+
+    invoke-static {v6, v7, v4}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
+
+    .line 110
+    invoke-static {}, Landroid/webkit/WebViewFactory;->loadNativeLibrary()V
+
+    .line 111
+    const-wide/16 v6, 0x10
+
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    .line 114
+    const-wide/16 v6, 0x10
+
+    const-string v4, "WebViewFactory.getFactoryClass()"
+
+    invoke-static {v6, v7, v4}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_2
+
+    .line 116
+    :try_start_3
+    invoke-static {}, Landroid/webkit/WebViewFactory;->getFactoryClass()Ljava/lang/Class;
+    :try_end_3
+    .catch Ljava/lang/ClassNotFoundException; {:try_start_3 .. :try_end_3} :catch_0
+    .catchall {:try_start_3 .. :try_end_3} :catchall_1
+
+    move-result-object v2
+
+    .line 121
+    .restart local v2    # "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
+    const-wide/16 v6, 0x10
+
+    :try_start_4
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    .line 124
+    invoke-static {}, Landroid/os/StrictMode;->allowThreadDiskReads()Landroid/os/StrictMode$ThreadPolicy;
+
+    move-result-object v1
+
+    .line 125
+    .restart local v1    # "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
+    const-wide/16 v6, 0x10
+
+    const-string v4, "providerClass.newInstance()"
+
+    invoke-static {v6, v7, v4}, Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_2
+
+    .line 128
+    const/4 v4, 0x1
+
+    :try_start_5
+    new-array v4, v4, [Ljava/lang/Class;
+
+    const/4 v6, 0x0
+
+    const-class v7, Landroid/webkit/WebViewDelegate;
+
+    aput-object v7, v4, v6
+
+    invoke-virtual {v2, v4}, Ljava/lang/Class;->getConstructor([Ljava/lang/Class;)Ljava/lang/reflect/Constructor;
+
+    move-result-object v4
+
+    const/4 v6, 0x1
+
+    new-array v6, v6, [Ljava/lang/Object;
+
+    const/4 v7, 0x0
+
+    new-instance v8, Landroid/webkit/WebViewDelegate;
+
+    invoke-direct {v8}, Landroid/webkit/WebViewDelegate;-><init>()V
+
+    aput-object v8, v6, v7
+
+    invoke-virtual {v4, v6}, Ljava/lang/reflect/Constructor;->newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v4
+
+    check-cast v4, Landroid/webkit/WebViewFactoryProvider;
+
+    sput-object v4, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
+    :try_end_5
+    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_5} :catch_1
+    .catchall {:try_start_5 .. :try_end_5} :catchall_3
+
+    .line 134
+    :goto_1
+    :try_start_6
+    sget-object v4, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
+    :try_end_6
+    .catch Ljava/lang/Exception; {:try_start_6 .. :try_end_6} :catch_2
+    .catchall {:try_start_6 .. :try_end_6} :catchall_3
+
+    .line 139
+    const-wide/16 v6, 0x10
+
+    :try_start_7
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    .line 140
+    invoke-static {v1}, Landroid/os/StrictMode;->setThreadPolicy(Landroid/os/StrictMode$ThreadPolicy;)V
+    :try_end_7
+    .catchall {:try_start_7 .. :try_end_7} :catchall_2
+
+    .line 143
+    const-wide/16 v6, 0x10
+
+    :try_start_8
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    monitor-exit v5
+    :try_end_8
+    .catchall {:try_start_8 .. :try_end_8} :catchall_0
+
+    goto :goto_0
+
+    .line 117
+    .end local v1    # "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
+    .end local v2    # "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
+    :catch_0
+    move-exception v0
+
+    .line 118
+    .local v0, "e":Ljava/lang/ClassNotFoundException;
+    :try_start_9
+    const-string v4, "WebViewFactory"
+
+    const-string v6, "error loading provider"
+
+    invoke-static {v4, v6, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 119
+    new-instance v4, Landroid/util/AndroidRuntimeException;
+
+    invoke-direct {v4, v0}, Landroid/util/AndroidRuntimeException;-><init>(Ljava/lang/Exception;)V
+
+    throw v4
+    :try_end_9
+    .catchall {:try_start_9 .. :try_end_9} :catchall_1
+
+    .line 121
+    .end local v0    # "e":Ljava/lang/ClassNotFoundException;
+    :catchall_1
+    move-exception v4
+
+    const-wide/16 v6, 0x10
+
+    :try_start_a
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    throw v4
+    :try_end_a
+    .catchall {:try_start_a .. :try_end_a} :catchall_2
+
+    .line 143
+    :catchall_2
+    move-exception v4
+
+    const-wide/16 v6, 0x10
+
+    :try_start_b
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    throw v4
+    :try_end_b
+    .catchall {:try_start_b .. :try_end_b} :catchall_0
+
+    .line 130
+    .restart local v1    # "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
+    .restart local v2    # "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
+    :catch_1
+    move-exception v0
+
+    .line 131
+    .local v0, "e":Ljava/lang/Exception;
+    :try_start_c
+    invoke-virtual {v2}, Ljava/lang/Class;->newInstance()Ljava/lang/Object;
+
+    move-result-object v4
+
+    check-cast v4, Landroid/webkit/WebViewFactoryProvider;
+
+    sput-object v4, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
+    :try_end_c
+    .catch Ljava/lang/Exception; {:try_start_c .. :try_end_c} :catch_2
+    .catchall {:try_start_c .. :try_end_c} :catchall_3
+
+    goto :goto_1
+
+    .line 135
+    .end local v0    # "e":Ljava/lang/Exception;
+    :catch_2
+    move-exception v0
+
+    .line 136
+    .restart local v0    # "e":Ljava/lang/Exception;
+    :try_start_d
+    const-string v4, "WebViewFactory"
+
+    const-string v6, "error instantiating provider"
+
+    invoke-static {v4, v6, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    .line 137
+    new-instance v4, Landroid/util/AndroidRuntimeException;
+
+    invoke-direct {v4, v0}, Landroid/util/AndroidRuntimeException;-><init>(Ljava/lang/Exception;)V
+
+    throw v4
+    :try_end_d
+    .catchall {:try_start_d .. :try_end_d} :catchall_3
+
+    .line 139
+    .end local v0    # "e":Ljava/lang/Exception;
+    :catchall_3
+    move-exception v4
+
+    const-wide/16 v6, 0x10
+
+    :try_start_e
+    invoke-static {v6, v7}, Landroid/os/Trace;->traceEnd(J)V
+
+    .line 140
+    invoke-static {v1}, Landroid/os/StrictMode;->setThreadPolicy(Landroid/os/StrictMode$ThreadPolicy;)V
+
+    throw v4
+    :try_end_e
+    .catchall {:try_start_e .. :try_end_e} :catchall_2
+.end method
+
 .method static getProvider()Landroid/webkit/WebViewFactoryProvider;
     .locals 8
 
@@ -505,8 +822,6 @@
 
     if-eqz v3, :cond_0
 
-    goto/16 :goto_flyme_0
-
     sget-object v3, Landroid/webkit/WebViewFactory;->sProviderInstance:Landroid/webkit/WebViewFactoryProvider;
 
     monitor-exit v4
@@ -521,7 +836,8 @@
     .end local v1    # "oldPolicy":Landroid/os/StrictMode$ThreadPolicy;
     .end local v2    # "providerClass":Ljava/lang/Class;, "Ljava/lang/Class<Landroid/webkit/WebViewFactoryProvider;>;"
     :cond_0
-    :goto_flyme_0
+    goto/16 :goto_flyme_0
+
     const-wide/16 v6, 0x10
 
     const-string v3, "WebViewFactory.getProvider()"
@@ -530,6 +846,7 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
+    :goto_flyme_0
     const-wide/16 v6, 0x10
 
     :try_start_1
