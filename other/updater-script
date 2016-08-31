@@ -1,7 +1,5 @@
 ui_print("Update Start");
 assert(getprop("ro.product.device") == "msm8974" ||
-       getprop("ro.build.product") == "msm8974" || 
-       getprop("ro.product.device") == "msm8974" ||
        getprop("ro.build.product") == "msm8974");
 mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system", "");
 ifelse(file_getprop("/system/build.prop", "ro.flyme.romer") == "ya0shen9", ui_print("No format data"), format("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/userdata", "0", "/data"));
@@ -11,15 +9,14 @@ show_progress(0.750000, 0);
 ui_print("Flashing system");
 format("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "0", "/system");
 mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system", "");
-package_extract_dir("recovery", "/system");
 package_extract_dir("system", "/system");
 ui_print("Flashing userdata");
 mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/userdata", "/data");
 delete_recursive("/data/system_app");
 delete_recursive("/data/system_priv-app");
 delete_recursive("/data/dalvik-cache");
-#delete("/data/system/batterystats.bin");
 package_extract_dir("data", "/data");
+symlink("/data/system_app/AlarmClock", "/system/app/AlarmClock");
 symlink("/data/system_app/AlarmClock", "/system/app/AlarmClock");
 symlink("/data/system_app/AppCenter", "/system/app/AppCenter");
 symlink("/data/system_app/Calculator", "/system/app/Calculator");
@@ -514,12 +511,17 @@ run_program("/sbin/busybox", "sh", "/tmp/supersu/META-INF/com/google/android/upd
 ui_print("Flashing boot");
 package_extract_file("boot.img", "/dev/block/platform/msm_sdcc.1/by-name/boot");
 show_progress(0.200000, 10);
-ui_print("Flashing firmware");
+ui_print("Flashing modem");
 package_extract_file("firmware/NON-HLOS.bin", "/dev/block/platform/msm_sdcc.1/by-name/modem");
+ui_print("Flashing sbl1");
 package_extract_file("firmware/sbl1.mbn", "/dev/block/platform/msm_sdcc.1/by-name/sbl1");
+ui_print("Flashing bootloader");
 package_extract_file("firmware/emmc_appsboot.mbn", "/dev/block/platform/msm_sdcc.1/by-name/aboot");
+ui_print("Flashing rpm");
 package_extract_file("firmware/rpm.mbn", "/dev/block/platform/msm_sdcc.1/by-name/rpm");
+ui_print("Flashing tz");
 package_extract_file("firmware/tz.mbn", "/dev/block/platform/msm_sdcc.1/by-name/tz");
+ui_print("Flashing splash");
 package_extract_file("firmware/splash.mbn", "/dev/block/platform/msm_sdcc.1/by-name/splash");
 unmount("/data");
 unmount("/system");
