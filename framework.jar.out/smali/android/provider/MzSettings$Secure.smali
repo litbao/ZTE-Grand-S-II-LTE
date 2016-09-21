@@ -15,6 +15,10 @@
 
 
 # static fields
+.field public static final APP_CLONE_ENABLED:Ljava/lang/String; = "mz_app_clone_enabled"
+
+.field public static final APP_CLONE_ENABLED_PACKAGES:Ljava/lang/String; = "mz_app_clone_eabled_pkgs"
+
 .field public static final ESE_SMARTMX:Ljava/lang/String; = "smartmx_ese"
 
 .field public static final MEIZU_DEVICE_NAME:Ljava/lang/String; = "meizu_device_name"
@@ -75,6 +79,18 @@
 .field public static final MZ_FORCE_TOUCH_LEVEL_INDEX:Ljava/lang/String; = "mz_force_touch_level_index"
 
 .field public static final MZ_FORCE_TOUCH_SWITCH:Ljava/lang/String; = "mz_force_touch_switch"
+
+.field public static final MZ_GAME_MODE:Ljava/lang/String; = "mz_game_mode"
+
+.field public static final MZ_GAME_MODE_ACCELERATE:Ljava/lang/String; = "mz_game_mode_accelerate"
+
+.field public static final MZ_GAME_MODE_DISABLE_BOTTOM_SLIDE:Ljava/lang/String; = "mz_game_mode_disable_bottom_slide"
+
+.field public static final MZ_GAME_MODE_DISABLE_MBACK:Ljava/lang/String; = "mz_game_mode_disable_mback"
+
+.field public static final MZ_GAME_MODE_DISABLE_TOP_SLIDE:Ljava/lang/String; = "mz_game_mode_disable_top_slide"
+
+.field public static final MZ_GAME_MODE_DND:Ljava/lang/String; = "mz_game_mode_dnd"
 
 .field public static final MZ_GUEST_MODE_PASSWORD:Ljava/lang/String; = "mz_guest_mode_password"
 
