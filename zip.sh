@@ -1,6 +1,15 @@
+######## A1、刷机大师 ########
+######## A2、奇兔软件 ########
+######## A3、刷机精灵 ########
+######## A4、亿智蘑菇 ########
+
+######## B1、速推 ########
+######## B2、络云 ########
+######## B3、王牌手机联盟 ########
+
 #!/bin/bash
 
-unzip -n ./out/flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.19R.zip -d ./out/temp
+unzip -n ./out/flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.23R.zip -d ./out/temp
 
 echo "准备打包"
 cp -r ./other/firmware ./out/temp
@@ -31,7 +40,7 @@ mv -f ./out/temp/system/priv-app/Video ./out/temp/data/system_priv-app
 
 echo "纯净包"
 cd ./out/temp
-zip -r ../full-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.19R.zip *
+zip -r ../full-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.23R.zip *
 cd ../..
 
 #echo "速推包"
@@ -42,19 +51,19 @@ cd ../..
 #cp ./other/sutui/360weishi.apk ./out/temp/data/app/360weishi.apk
 #cp ./other/sutui/jinritoutiao.apk ./out/temp/data/app/jinritoutiao.apk
 #cd ./out/temp
-#zip -r ../B1-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.19R.zip *
+#zip -r ../B1-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.23R.zip *
 #cd ../..
 
-echo "络云包"
-cp -r ./other/luoyun/luoyun ./out/temp/system/app
-cp -r ./other/luoyun/xunfeishurufa ./out/temp/system/app
-cp ./other/luoyun/liulanqi.apk ./out/temp/data/app/liulanqi.apk
-cp ./other/luoyun/yingyongzhongxin.apk ./out/temp/data/app/yingyongzhongxin.apk
-cp ./other/luoyun/jinritoutiao.apk ./out/temp/data/app/jinritoutiao.apk
-cp ./other/luoyun/shoujibaidu.apk ./out/temp/data/app/shoujibaidu.apk
-cd ./out/temp
-zip -r ../B2-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.19R.zip *
-cd ../..
+#echo "络云包"
+#cp -r ./other/luoyun/luoyun ./out/temp/system/app
+#cp -r ./other/luoyun/xunfeishurufa ./out/temp/system/app
+#cp ./other/luoyun/liulanqi.apk ./out/temp/data/app/liulanqi.apk
+#cp ./other/luoyun/yingyongzhongxin.apk ./out/temp/data/app/yingyongzhongxin.apk
+#cp ./other/luoyun/jinritoutiao.apk ./out/temp/data/app/jinritoutiao.apk
+#cp ./other/luoyun/shoujibaidu.apk ./out/temp/data/app/shoujibaidu.apk
+#cd ./out/temp
+#zip -r ../B2-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.23R.zip *
+#cd ../..
 
 #echo "蘑菇包"
 #cp -r ./other/mogu/mogu ./out/temp/system/app
@@ -64,8 +73,8 @@ cd ../..
 #cp ./other/mogu/liebaoqinglidashi.apk ./out/temp/data/app/liebaoqinglidashi.apk
 #cp ./other/mogu/baiduditu.apk ./out/temp/data/app/baiduditu.apk
 #cd ./out/temp
-#zip -r ../A4-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.19R.zip *
+#zip -r ../A4-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.9.23R.zip *
 #cd ../..
 
-echo "删除临时文件"
-rm -r ./out/temp
+#echo "删除临时文件"
+#rm -r ./out/temp
