@@ -15,7 +15,7 @@ OTHER_DIR=/media/ya0shen9/290a963a-1a45-4e8a-a273-333c15380e87/FlymeOS-5/devices
 
 rm -rf $OUT_DIR/temp
 mkdir $OUT_DIR/temp
-unzip -n $OUT_DIR/flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.9R.zip -d $OUT_DIR/temp
+unzip -n $OUT_DIR/flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.16R.zip -d $OUT_DIR/temp
 
 cp -r $OTHER_DIR/xposed/app $OUT_DIR/temp/data
 cp -r $OTHER_DIR/data/app $OUT_DIR/temp/data
@@ -25,13 +25,13 @@ cp -r $OTHER_DIR/updater-script $OUT_DIR/temp/META-INF/com/google/android/update
 
 if [ -e $OUT_DIR/merged_target_files/A1 ];then
 cd $OUT_DIR/temp
-zip -r ../A1-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.9R.zip *
+zip -r ../A1-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.16R.zip *
 
 elif [ -e $OUT_DIR/merged_target_files/A2 ];then
 cd $OUT_DIR/temp
-zip -r ../A2-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.9R.zip *
+zip -r ../A2-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.16R.zip *
 
 else
 cd $OUT_DIR/temp
-zip -r ../full-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.9R.zip *
+zip -r ../full-flyme_ZTE-Grand-S-II-LTE_ya0shen9_5.1.12.16R.zip *
 fi
