@@ -1,0 +1,27 @@
+ Adjust the system partition size in the vendor/META/misc_info.txt to …
+
+…support the block based ota package.
+
+You need to adjust the size of the system partition in the vendor/META/misc_info.txt.
+You can refer to the following commands.
+    # su
+    # mount
+    *** Find the system mount, /dev/block/platform/msm_sdcc.1/by-name/system. ***
+    # ls -l /dev/block/platform/msm_sdcc.1/by-name/system
+    *** Find the system corresponding to the mount point, system -> /dev/block/mmcblk0p25. ***
+    # cat proc/partitions
+    *** Find the block size of system ==> 1048576 mmcblk0p25 ***
+    *** SystemPartitionSize = 1048576 * 1024 ==> 0x40000000 ***
+    *** Fill in the value to the vendor/META/misc_info.txt in your device. ***
+
+
+/dev/block/platform/msm_sdcc.1/by-name/system /system ext4 ro,relatime,discard,data=ordered 0 0
+lrwxrwxrwx root     root              1970-02-03 23:59 system -> /dev/block/mmcblk0p12
+ 179       12     921600 mmcblk0p12
+0x38400000
+
+/dev/block/platform/msm_sdcc.1/by-name/userdata /data ext4 rw,nosuid,nodev,relatime,discard,noauto_da_alloc,data=ordered 0 0
+lrwxrwxrwx root     root              1970-02-03 23:59 userdata -> /dev/block/mmcblk0p13
+179       13    4194304 mmcblk0p13
+0x100000000
+
